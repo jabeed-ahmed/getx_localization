@@ -3,7 +3,7 @@ import 'package:getx_localization/util/dimensions.dart';
 import 'package:getx_localization/util/styles.dart';
 
 class CustomButton extends StatelessWidget {
-  final Function? onPressed;
+  final VoidCallback buttonAction;
   final String buttonText;
   final bool? transparent;
   final EdgeInsets? margin;
@@ -15,7 +15,7 @@ class CustomButton extends StatelessWidget {
 
   const CustomButton(
       {Key? key,
-      this.onPressed,
+      required this.buttonAction,
       required this.buttonText,
       this.transparent = false,
       this.margin,
@@ -38,23 +38,28 @@ class CustomButton extends StatelessWidget {
     );
 
     return Center(
-        child: SizedBox(
-            width: width ?? Dimensions.WEB_MAX_WIDTH,
-            child: Padding(
-              padding: margin ?? const EdgeInsets.all(0),
-              child: TextButton(
-                onPressed: () {
-                  onPressed;
-                },
-                style: _flatButtonStyle,
-                child:
-                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  Text(buttonText ??'', textAlign: TextAlign.center, style: robotoBold.copyWith(
-            color: transparent ? Theme.of(context).primaryColor : Theme.of(context).cardColor,
-            fontSize: fontSize != null ? fontSize : Dimensions.fontSizeLarge,
-          )),
-                ]),
+      child: SizedBox(
+        width: width ?? Dimensions.WEB_MAX_WIDTH,
+        child: Padding(
+          padding: margin ?? const EdgeInsets.all(0),
+          child: TextButton(
+            onPressed: buttonAction,
+            style: _flatButtonStyle,
+            child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              Text(
+                buttonText,
+                textAlign: TextAlign.center,
+                style: robotoBold.copyWith(
+                  color: transparent!
+                      ? Theme.of(context).primaryColor
+                      : Theme.of(context).cardColor,
+                  fontSize: fontSize ?? Dimensions.fontSizeLarge,
+                ),
               ),
-            )));
+            ]),
+          ),
+        ),
+      ),
+    );
   }
 }

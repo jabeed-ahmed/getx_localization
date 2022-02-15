@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:getx_localization/view/screens/home/home_screen.dart';
 import 'package:getx_localization/view/screens/language/language_screen.dart';
 import 'package:getx_localization/view/screens/splash/splash_screen.dart';
 
@@ -6,6 +7,7 @@ class RouteHelper {
   static const String initial = '/';
   static const String splash = '/splash';
   static const String language = '/language';
+  static const String home = '/home';
   static String getSplashRoute() => splash;
 
   static List<GetPage> routes = [
@@ -16,6 +18,10 @@ class RouteHelper {
     GetPage(
       name: language,
       page: () => const ChooseLanguageScreen(),
+    ),
+    GetPage(
+      name: home,
+      page: () => const HomeScreen(),
     )
   ];
 }
